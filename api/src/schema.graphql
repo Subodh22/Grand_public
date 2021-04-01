@@ -1,5 +1,5 @@
 type Query{
-  deg_count: [deg_name]@cypher (statement:"MATCH (t:Degree) WITH t.name AS name,t.id AS id RETURN {name: name,od:id} AS obj")
+  degcount: [deg_name]@cypher (statement:"MATCH (t:Degree) WITH t.name AS name,t.id AS id RETURN {name: name,od:id} AS obj")
 }
 
 type deg_name{

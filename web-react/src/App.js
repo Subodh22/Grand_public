@@ -3,68 +3,88 @@ import React from 'react';
 
 import {Typography,AppBar,Card,CardActions,CardContent,CardMedia,CssBaseline,Grid,Toolbar,Container, Button} from '@material-ui/core';
 import useStyles from './style';
-
-import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
+import {useState,useEffect} from 'react';
 import Search_tab from './components/Search_tab';
+import ReactDOM from 'react-dom';
+import {BrowserRouter as Router, Route,Switch,Link} from 'react-router-dom';
+import Results_tab from './components/Results_tab';
 
 
 
 
 const card_array=[1,2,3,4,5,6,7,8]
+
+  
+
+
+
+
 function App() {
   const classes =useStyles();
- 
 
-  return (
+const [query_value,setQuery]=useState('')
+const [deg_value,setDeg]=useState('')
+const changeValue=(input,deg)=>
+{
+  setQuery(input);
+  setDeg(deg);
+  
+}
+  useEffect(() => {
+  
+   const params = new URLSearchParams(location.search);
+   const topic = params.get("topic");
+   const degree = params.get("degree");
+   setQuery(topic);
+   setDeg(degree);
+   
+  }, [])
+
+  return ( <Router>
     <>
+     
   <CssBaseline/>
   <AppBar className={classes.apps} position="relative">
     <Toolbar>
-     
-      <Typography variant="h6">
-        Zantalone
-      </Typography>
+    <Link  className={classes.nth} to="/">
+      <Typography  variant="h6">
+      Zantalone
+      </Typography></Link>
     </Toolbar>
     </AppBar>
-    
-    <main>
-      <div className={classes.xip}  >
-       <Toolbar> <Typography className={classes.degree} align="center" variant='h7' gutterButtom>Degrees</Typography>
+    <div className={classes.xip}  >
+       <Toolbar> <Typography className={classes.degree} align="center" variant='h6' >Degrees</Typography>
         </Toolbar>
       </div>
-    <div className={classes.container}>
-       
+    
+    <main>
+
+      
+    
+<Route path='/' exact render={(props)=>
+  (
+<div className={classes.container}>
       <div>
       <Grid className={classes.buttons}
       container spacing={2} justify="center">
         <Grid item>
-       <Search_tab/>
+       <Search_tab onChange={changeValue}/>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="primary">Search</Button>
+          <Link to={'/result?topic='+query_value+'&degree='+deg_value}><Button variant="contained" color="primary">Search</Button></Link>
           </Grid>
-         
-
-      </Grid>
-
-      </div>
+         </Grid> </div>
       <Grid container
   className={classes.degree_choose} justify="center">
-      
-      
-        
       </Grid>
+</div>
+  )}/>
+    <Route path ="/result" component={Results_tab}/>
 
-    </div>
-
-  
     </main>
-    </>
+    
+    </></Router>
+    
   );
 }
 

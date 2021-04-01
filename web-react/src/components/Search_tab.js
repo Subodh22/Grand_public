@@ -1,60 +1,67 @@
 import React from 'react'
 import useStyles from '../style'
 import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import {useState} from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import {Typography,AppBar,Card,CardActions,CardContent,CardMedia,CssBaseline,Grid,Toolbar,Container, Button} from '@material-ui/core';
+
+import {Grid} from '@material-ui/core';
 import {useQuery,gql} from '@apollo/client';
 
 
 
-function Search_tab() {
+const Search_tab=({onChange})=> {
     const classes =useStyles();
+    const [state, setState] = useState('');
+    const [input_na, setInput_na] = useState('');
+    
+    const handlechange= (e)=>{setInput_na(e.target.value); (onChange(input_na,state))}
+    const han_ch=(e)=>{setState(e.target.value); (onChange(input_na,e.target.value))}
+
+    
     const Get_Degrees= gql `{
-        deg_count{
+      Degree{
             name
-            od
+            _id
+            
         }
-    }`
-    const [state, setState] = React.useState({
+    }`;
     
-        name: 'hai'
-      });
-    
-      const handleChange = (event) => {
-        const name = event.target.name;
-        setState({
-          ...state,
-          [name]: event.target.value,
-        });
-      };
-      const { loading, error, data } = useQuery(Get_Degrees)
-     
+      const { loading, error, data } = useQuery(Get_Degrees);
+      if (loading) return 'Loading...';
+      if (error) return `Error! ${error.message}`;
+      
     return (
         <>
            
         <form  >
         <Grid>
           <TextField 
+            required
             id="outlined-secondary"
             size="medium"
+            autoComplete='off'
             variant="outlined"
             color="primary"
              style={{width:500}}
-          /><FormControl variant="outlined">
+             onChange={handlechange}
+             />
+             <FormControl variant="outlined">
+             
         <Select
+          native
+          value={state.age}
+          onChange={han_ch}
           
-
+          inputProps={{
+            name: 'age',
+           
+          }}
         >
-          <option  value="" >any</option>
-          {data.deg_count.map((c)=>(
-              <option key={c.od} value={c.name}>{c.name}</option>
-          )) 
-          }
+          <option aria-label="None" value="any">any</option>
+          {data.Degree.map(dog => (<option key={dog._id} value={dog.name}>{dog.name}</option> ))}
         </Select>
+       
         </FormControl>
        </Grid>
         </form>
@@ -62,4 +69,5 @@ function Search_tab() {
         </>
     )
 }
-export default Search_tab
+
+export default Search_tab;
