@@ -15,9 +15,9 @@ const Search_tab=({onChange})=> {
     const [state, setState] = useState('');
     const [input_na, setInput_na] = useState('');
     
-    const handlechange= (e)=>{setInput_na(e.target.value); (onChange(input_na,state))}
+    const handlechange= (e)=>{setInput_na(e.target.value); (onChange(e.target.value,state))}
     const han_ch=(e)=>{setState(e.target.value); (onChange(input_na,e.target.value))}
-
+    
     
     const Get_Degrees= gql `{
       Degree{
@@ -33,7 +33,7 @@ const Search_tab=({onChange})=> {
       
     return (
         <>
-           
+         
         <form  >
         <Grid>
           <TextField 

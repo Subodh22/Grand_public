@@ -1,10 +1,5 @@
 type Query{
-  degcount: [deg_name]@cypher (statement:"MATCH (t:Degree) WITH t.name AS name,t.id AS id RETURN {name: name,od:id} AS obj")
-}
-
-type deg_name{
-   name:String
-   od:String
+   topic_search(topic:String,degree:String):[topic]@cypher(statement:"call db.index.fulltext.queryNodes('topic_to_hand','name:$topic degree_name:$degree')YIELD node RETURN node")
 }
 
 type syllabus_graph {
@@ -24,6 +19,7 @@ type CourseUnit {
 type topic {
    _id: Long!
    deg: String!
+   degree_name: String!
    name: String!
    courseunits: [CourseUnit] @relation(name: "Topics_for", direction: IN)
    videoss: [Videos] @relation(name: "videos_of", direction: IN)

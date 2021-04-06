@@ -11,14 +11,6 @@ import Results_tab from './components/Results_tab';
 
 
 
-
-const card_array=[1,2,3,4,5,6,7,8]
-
-  
-
-
-
-
 function App() {
   const classes =useStyles();
 
