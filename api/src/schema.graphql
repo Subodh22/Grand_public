@@ -1,5 +1,6 @@
 type Query{
-   topic_search(topic:String,degree:String):[topic]@cypher(statement:"call db.index.fulltext.queryNodes('topic_to_hand','name:$topic degree_name:$degree')YIELD node RETURN node")
+   topic_search(topic:String):[topic]@cypher(statement:"call db.index.fulltext.queryNodes('topic_to_hand',$topic)YIELD node RETURN node")
+   # video_search()
 }
 
 type syllabus_graph {

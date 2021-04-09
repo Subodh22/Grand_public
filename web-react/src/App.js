@@ -9,7 +9,9 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Route,Switch,Link} from 'react-router-dom';
 import Results_tab from './components/Results_tab';
 
-
+import degree_tab from './components/degree_tab';
+import syllabus from './components/syllabus';
+import course from './components/course';
 
 function App() {
   const classes =useStyles();
@@ -45,8 +47,8 @@ const changeValue=(input,deg)=>
     </Toolbar>
     </AppBar>
     <div className={classes.xip}  >
-       <Toolbar> <Typography className={classes.degree} align="center" variant='h6' >Degrees</Typography>
-        </Toolbar>
+       <Toolbar> <Link to="/degree_list"><Typography className={classes.degree} align="center" variant='h6' >Degrees</Typography>
+       </Link> </Toolbar>
       </div>
     
     <main>
@@ -72,6 +74,10 @@ const changeValue=(input,deg)=>
 </div>
   )}/>
     <Route path ="/result" component={Results_tab}/>
+     
+    <Route path ="/degree_list" component={degree_tab}/>
+    <Route path = "/syllabus" component={syllabus}/>
+    <Route path = "/course" component={course}/>
 
     </main>
     

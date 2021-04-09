@@ -12,7 +12,7 @@ import {useQuery,gql} from '@apollo/client';
 
 const Search_tab=({onChange})=> {
     const classes =useStyles();
-    const [state, setState] = useState('');
+    const [state, setState] = useState('any');
     const [input_na, setInput_na] = useState('');
     
     const handlechange= (e)=>{setInput_na(e.target.value); (onChange(e.target.value,state))}
@@ -54,8 +54,8 @@ const Search_tab=({onChange})=> {
           onChange={han_ch}
           
           inputProps={{
-            name: 'age',
-           
+            name: 'result',
+            
           }}
         >
           <option aria-label="None" value="any">any</option>
