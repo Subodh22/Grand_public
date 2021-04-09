@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
-
+import { useHistory } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -31,7 +31,8 @@ const useStyles = makeStyles((theme) => ({
       maxHeight: '100%',
     },
   }));
-const Dis_v= ({t_from_back}) => {
+const Dis_v= ( ) => {
+    const history = useHistory() 
     const Get_videos =gql`
     query topic($name:String){
         topic(name:$name)
@@ -49,25 +50,35 @@ const Dis_v= ({t_from_back}) => {
     `
     const [tool,setTool]=useState('');
 
-    // useEffect(() => {
-  
-    //     const param = new URLSearchParams(location.search);
-    //     const topic= param.get("topic");
-    //     setTool(topic);
+    useEffect(() => {
+        if(tool===""){
+        const param = new URLSearchParams(location.search);
+        const topic= param.get("topic");
+        setTool(topic);}
+        return history.listen((location) => { 
+            const param = new URLSearchParams(location.search);
+            const topic= param.get("topic");
+            setTool(topic);
+         }) 
         
-    //    }, []);
-    setTool(t_from_back);
+      },[ ]) ;
+       
+        
+   
+    
     const classes = useStyles();
-    console.log(tool);
+    // console.log(tool+"AYO");
     const { loading, error, data } = useQuery(Get_videos,
         {
             variables:{name:tool}
         },);
     if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
-  return (
-    <div className={classes.root}>
-     {data.topic[0].videoss.map(to=>(<Paper className={classes.paper}>
+  
+return ( 
+      <div>
+     {tool==="any"?<h3>Please select a topic</h3> :<div className={classes.root}>
+     {data.topic[0].videoss.map(to=>(<Paper key={to.title} className={classes.paper}>
         <Grid container spacing={2}>
             
           <Grid item>
@@ -97,9 +108,10 @@ const Dis_v= ({t_from_back}) => {
         
         
       </Paper>))}
-      
+      </div> } 
     </div>
   );
 }
+
 
 export default Dis_v;

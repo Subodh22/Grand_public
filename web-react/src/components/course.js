@@ -84,12 +84,12 @@ const course=()=> {
   const theme = useTheme();
   const [open, setOpen] = useState(true);
   const [uni,setUni]=useState('');
-  const [topic_nam,setTopic_nam]=useState('');
+ 
   useEffect(() => {
   
     const params = new URLSearchParams(location.search);
     const degree = params.get("unit");
-    const topic = params.get('topic');
+    
     // const joi='name:'+topic_e
     setUni(degree)
      
@@ -154,7 +154,7 @@ const course=()=> {
         
         <List>
           {data.CourseUnit[0]["topics_for"].map((t) => (
-           <Link className={classes.nth} to={'/course?unit='+data.CourseUnit[0]["name"]+'&topic='+t.name}>  <ListItem button key={t.name} >
+           <Link key={t.name} className={classes.nth} to={'/course?unit='+data.CourseUnit[0]["name"]+'&topic='+t.name}>  <ListItem button  >
               <ListItemText primary={t.name} />
             </ListItem></Link>
           ))}

@@ -50,9 +50,9 @@ const Results_tab = () => {
         
         <div>
            
-           {data.topic_search.map(tp=>(<Link key={tp._id} to={'/course?unit='+tp["courseunits"][0]["name"]+'&topic='+tp.name}><div >
-            <h3 key={tp._id}>{tp.name}</h3>
-           <h4 key={tp._id}> {tp.degree_name}</h4></div></Link>
+           {data.topic_search.map(tp=>(<Link key={tp.name} to={'/course?unit='+tp["courseunits"][0]["name"]+'&topic='+tp.name}><div >
+            <h3  >{tp.name}</h3>
+           <h4  > {tp.degree_name}</h4></div></Link>
            ))}
             <Link to="/">Go back</Link>
         </div>
