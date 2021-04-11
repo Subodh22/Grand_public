@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { useHistory } from 'react-router-dom';
+import YouTube from 'react-youtube';
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -39,17 +40,19 @@ const Dis_v= ( ) => {
         {
             videoss
             {
+                id
                 title
                 img
                 age
                 views
                 duration
 
+
             }
         }}
     `
     const [tool,setTool]=useState('');
-
+    const [v_id,setV_id]=useState('');
     useEffect(() => {
         if(tool===""){
         const param = new URLSearchParams(location.search);
@@ -59,11 +62,28 @@ const Dis_v= ( ) => {
             const param = new URLSearchParams(location.search);
             const topic= param.get("topic");
             setTool(topic);
+            setV_id('');
          }) 
         
       },[ ]) ;
-       
-        
+      const opts = {
+        height: '390',
+        width: '640',
+        playerVars: {
+          
+          autoplay: 1,
+        },
+      };
+    function shoot(joni)
+    {
+
+        setV_id(joni[0])
+    
+    }
+    function onReady(event) {
+        // access to player in all event handlers via event.target
+        event.target.playVideo();
+      }
    
     
     const classes = useStyles();
@@ -72,14 +92,17 @@ const Dis_v= ( ) => {
         {
             variables:{name:tool}
         },);
+    const fabi=(e)=>{console.log(e.target.key)};
     if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
   
 return ( 
       <div>
      {tool==="any"?<h3>Please select a topic</h3> :<div className={classes.root}>
-     {data.topic[0].videoss.map(to=>(<Paper key={to.title} className={classes.paper}>
-        <Grid container spacing={2}>
+         {v_id==="" ?  <></>:<YouTube videoId={v_id}opts={opts} onReady={onReady} />}
+
+     {data.topic[0].videoss.map(to=>(<Paper key={to.title} className={classes.paper} >
+        <Grid container spacing={2} onClick={ ()=>shoot(to.id)}>
             
           <Grid item>
             <ButtonBase className={classes.image}>
