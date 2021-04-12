@@ -47,8 +47,10 @@ const changeValue=(input,deg)=>
     </Toolbar>
     </AppBar>
     <div className={classes.xip}  >
-       <Toolbar> <Link to="/degree_list"><Typography className={classes.degree} align="center" variant='h6' >Degrees</Typography>
-       </Link> </Toolbar>
+       <Toolbar> <Button color="inherit" component={Link} to="/degree_list"> Degrees 
+       
+       </Button>
+        </Toolbar>
       </div>
     
     <main>

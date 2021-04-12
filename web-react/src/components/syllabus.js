@@ -74,7 +74,7 @@ const syllabus = () => {
                 {
                    return( <ListItem   >
                    {/* <ListSubheader  >{je}</ListSubheader> */}
-                   <Typography  variant="h6">{je} </Typography>
+                   <ListItemText primary={je}  />
                    </ListItem>)
                 }
                 
@@ -95,11 +95,12 @@ const syllabus = () => {
     return(
         <div>
              <ListItem >
-             <Typography  variant="h5">{degree_name} </Typography>
+             {/* <Typography  variant="h5">{degree_name} </Typography> */}
+             <ListItemText primary={degree_name}  />
              </ListItem>
             <ListItem >
-          <Typography  variant="h6">Select from syllabus below : </Typography>
-          
+          {/* <Typography  variant="h5">Select from syllabus below : </Typography> */}
+          <ListItemText primary="Select from syllabus below : "/>
           </ListItem>
             {mike.map((k)=>( k[Object.keys(k)[0]].map((j)=>(   
                  <List >
