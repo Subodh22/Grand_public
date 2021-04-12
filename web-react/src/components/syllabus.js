@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom'
 import {useState,useEffect} from 'react';
 import {useQuery,gql} from '@apollo/client';
 import useStyles from '../style';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import ReactDom from 'react-dom';
+import { ListSubheader, Typography } from '@material-ui/core';
 const syllabus = () => {
      const [degree_name,setDegree_name]=useState('');
      const [values_name,setValue_name]=useState('');
@@ -55,25 +60,31 @@ const syllabus = () => {
             case false:
                 if(/\d/.test(jon[1])==true)
                 {return(  <>
-                    <h3>OR</h3> <Link key={je} to={'/course?unit='+je+'&topic=any'}><h3>
-                    
-                   {je.split(jon[0]).pop()}
-          </h3></Link>
+                   <ListSubheader  >OR </ListSubheader>
+          <ListItem to={'/course?degree='+degree_name+'&unit='+je+'&topic=any'} component={Link} button  >
+          <ListItemText primary= {je.split(jon[0]).pop()}  />
+         
+          </ListItem>
+          
                    </> )
                    
                 } 
                 
                 else 
                 {
-                   return( <h3>
-                    {je}
-                    </h3> )
+                   return( <ListItem   >
+                   {/* <ListSubheader  >{je}</ListSubheader> */}
+                   <Typography  variant="h6">{je} </Typography>
+                   </ListItem>)
                 }
                 
             case true: return (
-                <Link key={je} to={'/course?unit='+je+'&topic=any'}><h3>
-          {je}
-          </h3></Link>
+               
+                    <ListItem to={'/course?degree='+degree_name+'&unit='+je+'&topic=any'} component={Link} button  >
+          <ListItemText primary={je}  />
+          
+          </ListItem>
+          
          )
          
           }
@@ -83,10 +94,19 @@ const syllabus = () => {
       
     return(
         <div>
+             <ListItem >
+             <Typography  variant="h5">{degree_name} </Typography>
+             </ListItem>
+            <ListItem >
+          <Typography  variant="h6">Select from syllabus below : </Typography>
+          
+          </ListItem>
             {mike.map((k)=>( k[Object.keys(k)[0]].map((j)=>(   
-                    jenny(j)
+                 <List >
+                     
+                   { jenny(j)}
       
-
+                    </List>
 
 
 
