@@ -51,10 +51,10 @@ const syllabus = () => {
 
       const jenny =(je)=>
       {
-          console.log(je);
+          
           var jon=je.split(' ');
           var juj_test=/\d/.test(jon[0]);
-          console.log(juj_test)
+            
           switch (juj_test)
           {
             case false:
@@ -99,19 +99,20 @@ const syllabus = () => {
              <ListItemText primary={degree_name}  />
              </ListItem>
             <ListItem >
-          {/* <Typography  variant="h5">Select from syllabus below : </Typography> */}
+           
           <ListItemText primary="Select from syllabus below : "/>
           </ListItem>
-            {mike.map((k)=>( k[Object.keys(k)[0]].map((j)=>(   
+            {mike.map((k)=>(  k[Object.keys(k)[0]].map((j)=>(   
+                 
                  <List >
                      
                    { jenny(j)}
       
                     </List>
+)
 
 
-
-            ))))}
+            )))}
             </div>
             );
 }
