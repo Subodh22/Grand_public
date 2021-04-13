@@ -2,6 +2,26 @@ import {makeStyles, ThemeProvider} from '@material-ui/core/styles';
 
 
 const useStyles = makeStyles((theme)=>({
+
+    videoRow:{
+              display:'flex',
+              marginBottom:'30px',
+              maxWidth:'700px'
+            },
+            imgRow:{
+              objectFit:'contain',
+              width:246,
+              height:138
+            },
+            videoRow_text:
+            {
+              marginLeft:'14px'
+            },
+            videoRow_headline:{
+              fontSize:'12px',
+              color:'#606060'
+            },
+            videoRow_para:{},
     container:{
     //   backgroundColor:theme.palette.background.paper,
       padding:theme.spacing(8,0,6)

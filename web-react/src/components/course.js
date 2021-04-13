@@ -84,14 +84,16 @@ const course=()=> {
   const theme = useTheme();
   const [open, setOpen] = useState(true);
   const [uni,setUni]=useState('');
+  const [deg,setDeg]=useState('');
  
   useEffect(() => {
   
     const params = new URLSearchParams(location.search);
     const degree = params.get("unit");
-    
+    const dd=params.get('degree');
     // const joi='name:'+topic_e
     setUni(degree)
+    setDeg(dd)
      
    }, [])
    const Get_Degrees= gql `
@@ -123,14 +125,16 @@ const course=()=> {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <div>
-        <Toolbar>
+      <div style={{maxHeight:'56px' }}>
+        <Toolbar style={{padding:'0',paddingLeft:'10px'}}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
+            className={clsx(classes.menuButton, open && classes.hide)
+            }
+            style={{margin:'0px'}}
           >
             <MenuIcon />
           </IconButton>
@@ -152,21 +156,32 @@ const course=()=> {
           </IconButton>
         </div>
         
-        <List>
+        <List aria-label="main mailbox folders">
+        <ListItem to={'/syllabus?degree='+deg} component={Link} button  >
+          <ListItemText primary={deg+":"}  />
+          
+          </ListItem>
+          <ListItem  >
+          <ListItemText primary={uni}   />
+          
+          </ListItem>
+          <ListItem><ListItemText primary="Syllabus : " /></ListItem>
           {data.CourseUnit[0]["topics_for"].map((t) => (
-           <Link key={t.name} className={classes.nth} to={'/course?unit='+data.CourseUnit[0]["name"]+'&topic='+t.name}>  <ListItem button  >
+             <ListItem key={t.name} to={'/course?unit='+data.CourseUnit[0]["name"]+'&topic='+t.name} component={Link} button  >
               <ListItemText primary={t.name} />
-            </ListItem></Link>
+            </ListItem>
+
+
           ))}
         </List>
     
       </Drawer>
-      <main
+      <main 
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
       >
-        <div className={classes.drawerHeader} />
+       
         <Dis_v  />
       </main>
     </div>

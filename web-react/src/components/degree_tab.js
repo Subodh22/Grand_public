@@ -2,8 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import {useState,useEffect} from 'react';
 import {useQuery,gql} from '@apollo/client';
-
-    
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 
 const degree_tab = () => {
     // const [degrees,setDegrees]=useState('');
@@ -32,10 +34,15 @@ const degree_tab = () => {
 
     return (
       <>
-         
-        {data.Degree.map(ty=>(<Link key={ty._id} to={'/syllabus?degree='+ty.name}><div>
-        <h3 >{ty.name}</h3>
-        </div></Link>))}
+         <List>
+        {data.Degree.map(ty=>(
+          
+        <ListItem key={ty._id} to={'/syllabus?degree='+ty.name}component={Link} button  >
+          <ListItemText primary={ty.name}  />
+          
+          </ListItem>
+       
+        ))} </List>
         </>
     )
 }

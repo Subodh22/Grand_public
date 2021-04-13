@@ -2,7 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import {useState,useEffect} from 'react';
 import {useQuery,gql} from '@apollo/client';
-
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { Typography } from '@material-ui/core';
     
 const Results_tab = () => {
     const [names,setNames] = useState('juli');
@@ -48,13 +51,18 @@ const Results_tab = () => {
       console.log(data)
     return (
         
-        <div>
+        <div> {(data.topic_search).length===0 ?<Typography> No results found</Typography> :<List>
            
-           {data.topic_search.map(tp=>(<Link key={tp.name} to={'/course?unit='+tp["courseunits"][0]["name"]+'&topic='+tp.name}><div >
-            <h3  >{tp.name}</h3>
-           <h4  > {tp.degree_name}</h4></div></Link>
+           {data.topic_search.map(tp=>(
+                <ListItem key={tp.name} to={'/course?degree='+tp.degree_name+'&unit='+tp["courseunits"][0]["name"]+'&topic='+tp.name} component={Link} button  >
+                <ListItemText primary={tp.name}  secondary={tp.degree_name} />
+                
+                </ListItem>
            ))}
-            <Link to="/">Go back</Link>
+           
+            </List>
+}
+
         </div>
     )
 }
