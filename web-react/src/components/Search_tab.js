@@ -1,10 +1,10 @@
-import React from 'react'
-import useStyles from '../style'
+import React  from 'react';
+import useStyles from '../style';
 import TextField from '@material-ui/core/TextField';
 import {useState} from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
+import {BrowserRouter as Router,useHistory} from 'react-router-dom';
 import {Grid} from '@material-ui/core';
 import {useQuery,gql} from '@apollo/client';
 
@@ -17,7 +17,18 @@ const Search_tab=({onChange})=> {
     
     const handlechange= (e)=>{setInput_na(e.target.value); (onChange(e.target.value,state))}
     const han_ch=(e)=>{setState(e.target.value); (onChange(input_na,e.target.value))}
-    
+    let history= useHistory();
+    const handleSubmit = (e) =>
+    {
+      
+      e.preventDefault();
+      
+      history.push("/result?topic="+input_na+'&degree='+state);
+      history.go();
+      // e.stopPropogation();
+      // const handleOnClick = useCallback(() => history.push("/result?topic="+input_na+'&degree='+state), [history]);
+  
+    }
     
     const Get_Degrees= gql `{
       Degree{
@@ -34,7 +45,7 @@ const Search_tab=({onChange})=> {
     return (
         <>
          
-        <form  >
+        <form onSubmit={handleSubmit} >
         <Grid>
           <TextField 
             required
@@ -53,10 +64,7 @@ const Search_tab=({onChange})=> {
           value={state.age}
           onChange={han_ch}
           
-          inputProps={{
-            name: 'result',
-            
-          }}
+         
         >
           <option aria-label="None" value="any">any</option>
           {data.Degree.map(dog => (<option key={dog._id} value={dog.name}>{dog.name}</option> ))}
@@ -70,4 +78,4 @@ const Search_tab=({onChange})=> {
     )
 }
 
-export default Search_tab;
+export default  Search_tab;

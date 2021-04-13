@@ -2,35 +2,84 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import {useState,useEffect} from 'react';
 import {useQuery,gql} from '@apollo/client';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
 import { useHistory } from 'react-router-dom';
 import YouTube from 'react-youtube';
-const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing(2),
-      margin: 'auto',
-      marginBottom:'20px',
-      maxWidth: 500,
-      
+import CardActionArea from '@material-ui/core/CardActionArea';
 
+import { Card, Container, Typography } from '@material-ui/core';
+import CardMedia from '@material-ui/core/CardMedia';
+// import './vid_play.css';
+const useStyles = makeStyles((theme) => ({
+    videoRow:{
+      display:'flex',
+      marginBottom:'30px',
+      maxWidth:'700px'
     },
-    image: {
-      width: 128,
-      height: 128,
+    media: {
+      width:'100%',
+      height:140
+    }
+    ,cc:{
+      display:'flex',
+      maxWidth:'100vh'
     },
-    img: {
-      margin: 'auto',
-      display: 'block',
-      maxWidth: '100%',
-      maxHeight: '100%',
+    imgRow:{
+      objectFit:'contain',
+      width:246,
+      height:138
     },
+    videoRow_text:
+    {
+      marginLeft:'14px'
+    },
+    videoRow_headline:{
+      fontSize:'18px',
+      color:'#606060'
+    },
+    videoRow_para:{},
+   
+
+    root: {
+      display: 'flex',
+      minHeight:''
+    },
+    vide:{
+      minHeight:'60vh',
+      paddingBottom:'20px'
+     
+    },
+    details: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    content: {
+      flex: '1 0 auto',
+    },
+    cover: {
+      objectFit:'contain',
+      width:'100%',
+      minHeight:'300px'
+     
+      
+    },
+    controls: {
+      display: 'flex',
+      alignItems: 'center',
+      paddingLeft: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+    },
+    playIcon: {
+      height: 38,
+      width: 38,
+    },
+ 
+
+     
+
   }));
 const Dis_v= ( ) => {
     const history = useHistory() 
@@ -67,8 +116,9 @@ const Dis_v= ( ) => {
         
       },[ ]) ;
       const opts = {
-        height: '390',
-        width: '640',
+       width:'100%',
+      height:'600',
+
         playerVars: {
           
           autoplay: 1,
@@ -86,7 +136,9 @@ const Dis_v= ( ) => {
       }
    
     
-    const classes = useStyles();
+const classes = useStyles();
+const theme = useTheme();
+
     // console.log(tool+"AYO");
     const { loading, error, data } = useQuery(Get_videos,
         {
@@ -96,43 +148,51 @@ const Dis_v= ( ) => {
     if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
   
-return ( 
-      <div>
-     {tool==="any"?<h3>Please select a topic</h3> :<div className={classes.root}>
-         {v_id==="" ?  <></>:<YouTube videoId={v_id}opts={opts} onReady={onReady} />}
-
-     {data.topic[0].videoss.map(to=>(<Paper key={to.title} className={classes.paper} >
-        <Grid container spacing={2} onClick={ ()=>shoot(to.id)}>
-            
-          <Grid item>
-            <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src={to.img} />
-            </ButtonBase>
-          </Grid>
-          <Grid item xs={12} sm container>
-            
-              <Grid item xs>
-                <Typography variant="body2" gutterBottom>
-                 {to.title}
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                    Duration:{to.duration}
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  {to.views}.{to.age}
-                </Typography>
-                
-              </Grid>
-              
+return (   
+     <>
+     {tool==="any"?<Typography>Please select a topic</Typography> :<div   >
+         {v_id==="" ?  <></>:<Grid container><Grid item xs={12} className={classes.vide}><YouTube  videoId={v_id}opts={opts} onReady={onReady}/></Grid></Grid>}
+         <Grid container  spacing={3}>
            
-            
-          </Grid>
-        </Grid>
-        
-        
-      </Paper>))}
+     {data.topic[0].videoss.map(to=>(
+       <Grid item  xs={12}  key={to.title}  onClick={ ()=>shoot(to.id)} >
+       
+
+<Card className={classes.root} key={to.title}  onClick={ ()=>shoot(to.id)}>
+  <CardActionArea>
+  <Grid container>
+    <Grid item xs={12}lg={3} md={4} sm={6} >
+<CardMedia
+  className={classes.cover}
+  image={to.img}
+ 
+/></Grid>
+<Grid item xs={12}lg={8} md={6} sm={6}>
+<div className={classes.details}>
+  <CardContent  className={classes.content}>
+    <Typography component="h5" variant="h5">
+      {to.title}
+    </Typography>
+    <Typography variant="subtitle1" color="textSecondary">
+     {to.duration}
+    </Typography>
+    <Typography variant="subtitle1" color="textSecondary">
+     {to.views}•{to.age}
+    </Typography>
+    
+  </CardContent>
+ 
+</div>
+</Grid>
+</Grid>
+</CardActionArea>
+</Card>
+</Grid>
+     ))}
+
+</Grid> 
       </div> } 
-    </div>
+    </>
   );
 }
 

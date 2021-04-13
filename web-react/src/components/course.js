@@ -125,14 +125,16 @@ const course=()=> {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <div>
-        <Toolbar>
+      <div style={{maxHeight:'56px' }}>
+        <Toolbar style={{padding:'0',paddingLeft:'10px'}}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
+            className={clsx(classes.menuButton, open && classes.hide)
+            }
+            style={{margin:'0px'}}
           >
             <MenuIcon />
           </IconButton>
@@ -174,12 +176,12 @@ const course=()=> {
         </List>
     
       </Drawer>
-      <main
+      <main 
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
       >
-        <div className={classes.drawerHeader} />
+       
         <Dis_v  />
       </main>
     </div>

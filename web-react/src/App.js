@@ -6,7 +6,7 @@ import useStyles from './style';
 import {useState,useEffect} from 'react';
 import Search_tab from './components/Search_tab';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Route,Switch,Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route,Switch,Link } from 'react-router-dom';
 import Results_tab from './components/Results_tab';
 
 import degree_tab from './components/degree_tab';
@@ -38,7 +38,7 @@ const changeValue=(input,deg)=>
     <>
      
   <CssBaseline/>
-  <AppBar className={classes.apps} position="relative">
+  <AppBar className={classes.apps} position="static">
     <Toolbar>
     <Link  className={classes.nth} to="/">
       <Typography  variant="h6">
@@ -64,7 +64,7 @@ const changeValue=(input,deg)=>
       <Grid className={classes.buttons}
       container spacing={2} justify="center">
         <Grid item>
-       <Search_tab onChange={changeValue}/>
+       <Router><Search_tab onChange={changeValue}/></Router>
         </Grid>
         <Grid item>
           <Link to={'/result?topic='+query_value+'&degree='+deg_value}><Button variant="contained" color="primary">Search</Button></Link>
@@ -75,6 +75,7 @@ const changeValue=(input,deg)=>
       </Grid>
 </div>
   )}/>
+  
     <Route path ="/result" component={Results_tab}/>
      
     <Route path ="/degree_list" component={degree_tab}/>
