@@ -75,13 +75,13 @@ const changeValue=(input,deg)=>
       </Grid>
 </div>
   )}/>
-  
+  <Switch>
     <Route path ="/result" component={Results_tab}/>
      
     <Route path ="/degree_list" component={degree_tab}/>
     <Route path = "/syllabus" component={syllabus}/>
     <Route path = "/course" component={course}/>
-
+    </Switch>
     </main>
     
     </></Router>
