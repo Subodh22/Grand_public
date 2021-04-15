@@ -127,7 +127,11 @@ const Dis_v= ( ) => {
     function shoot(joni)
     {
 
-        setV_id(joni[0])
+        setV_id(joni[0]);
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
     
     }
     function onReady(event) {
@@ -158,7 +162,7 @@ return (
        <Grid item  xs={12}  key={to.title}  onClick={ ()=>shoot(to.id)} >
        
 
-<Card className={classes.root} key={to.title}  onClick={ ()=>shoot(to.id)}>
+<Card className={classes.root} key={to.title}  >
   <CardActionArea>
   <Grid container>
     <Grid item xs={12}lg={3} md={4} sm={6} >
