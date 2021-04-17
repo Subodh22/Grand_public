@@ -16,7 +16,8 @@
   to = "/.netlify/functions/graphql"
   status = 200
 
-[[headers]]
-  for = "/path/to/serviceworker.js"
-  [headers.values]
-    cache-control = "max-age=0,no-cache,no-store,must-revalidate"
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  
