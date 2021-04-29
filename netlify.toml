@@ -12,6 +12,8 @@
   NEO4J_PASSWORD = "Neo4j Password"
   
 [[redirects]]
-  from = "/graphql"
-  to = "/.netlify/functions/graphql"
+  from = "/*"
+  to = "/index.html"
   status = 200
+  force = true
+  headers = {X-From = "Netlify"}
